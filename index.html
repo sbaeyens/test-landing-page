@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Splash Sports — Compete. Win. Repeat.</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy:       #0b1120;
+      --navy-mid:   #111827;
+      --navy-card:  #162033;
+      --navy-border:#1e2d47;
+      --accent:     #00d4ff;
+      --accent-dim: #0099bb;
+      --accent-glow:rgba(0, 212, 255, 0.18);
+      --text:       #e8f0fe;
+      --muted:      #7a90b0;
+      --white:      #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--navy);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-logo .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo .logo-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--navy);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--navy) !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--white) !important;
+      color: var(--navy) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Radial glow background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(ellipse at center, rgba(0,212,255,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Subtle grid */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--navy-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--navy-border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent-glow);
+      border: 1px solid rgba(0,212,255,0.3);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: var(--navy);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(0,212,255,0.35);
+    }
+
+    .btn-primary:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(0,212,255,0.5);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--navy-border);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--navy-border);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+    }
+
+    .stat-number em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 6rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .section-header p {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      padding: 2.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(0,212,255,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 6rem 1.5rem;
+      background: var(--navy-mid);
+      border-top: 1px solid var(--navy-border);
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .how-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+
+    .step h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      padding: 6rem 1.5rem;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 20px;
+      padding: 3.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(0,212,255,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-inner h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-inner p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .cta-inner .btn-primary {
+      position: relative;
+      font-size: 1.05rem;
+      padding: 1rem 2.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--navy-border);
+      padding: 2rem 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 0.82rem;
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid var(--navy-border);
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+        </svg>
+      </div>
+      Splash<span>Sports</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Games</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#">Leaderboard</a></li>
+      <li><a href="#" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Now Live — Spring 2026 Season</div>
+      <h1>Compete Smarter.<br />Win <span class="highlight">Bigger.</span></h1>
+      <p>Splash Sports is the ultimate platform for sports contest fans. Pick your contests, outsmart the field, and climb the leaderboard — all in one place.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Get Started Free
+        </a>
+        <a href="#features" class="btn-secondary">
+          See How It Works
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">2<em>M</em>+</span>
+          <span class="stat-label">Active Players</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">$<em>50</em>M</span>
+          <span class="stat-label">Prizes Awarded</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">18<em>+</em></span>
+          <span class="stat-label">Contest Types</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <div class="section-tag">Contest Types</div>
+      <h2>Every Game You Love,<br />All in One Place</h2>
+      <p>Choose your format, set your strategy, and let the action begin.</p>
+    </div>
+    <div class="features-grid">
+
+      <!-- Card 1 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <!-- Lightning bolt -->
+          <svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>Quick Picks</h3>
+        <p>Make lightning-fast selections across multiple games before the window closes. No season-long commitment — just sharp instincts and instant results.</p>
+        <span class="feature-tag">Most Popular</span>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <!-- Shield -->
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Survivor Pools</h3>
+        <p>Pick one team to win each week — but you can only use each team once. Stay alive longer than everyone else and claim the prize pool.</p>
+        <span class="feature-tag">High Stakes</span>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <!-- Trophy / award -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <h3>Pick'em Contests</h3>
+        <p>Predict winners straight-up or against the spread across full slates of games. Compete head-to-head or in massive public pools for glory and prizes.</p>
+        <span class="feature-tag">Best for Groups</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-inner">
+      <div class="section-header">
+        <div class="section-tag">How It Works</div>
+        <h2>Up and Running in Minutes</h2>
+        <p>Getting started is simple — no experience required.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Create an Account</h3>
+          <p>Sign up free in under 60 seconds. No credit card required to explore contests.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Choose a Contest</h3>
+          <p>Browse hundreds of active contests — from free practice pools to high-stakes competitions.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Make Your Picks</h3>
+          <p>Submit your selections before the contest locks and games begin.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Track & Win</h3>
+          <p>Follow live scoring, climb the leaderboard, and collect your winnings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="cta-inner">
+      <h2>Ready to Make Your Picks?</h2>
+      <p>Join over 2 million players competing every week. Your first contest is on us.</p>
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Get Started Free
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="#" class="footer-logo">Splash<span>Sports</span></a>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contests</a></li>
+        <li><a href="#">Responsible Play</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 Splash Sports, Inc. All rights reserved. Must be 18+ to participate. Play responsibly.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
