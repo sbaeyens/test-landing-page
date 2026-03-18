@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up – Email &amp; Promo Code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Phone shell ── */
+    .phone {
+      position: relative;
+      width: 393px;
+      height: 852px;
+      background: #fff;
+      overflow: hidden;
+      border-radius: 48px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+    }
+
+    /* ── Status Bar ── */
+    .status-bar {
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: #fff;
+    }
+
+    .status-bar .time {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      color: #000;
+      letter-spacing: -0.3px;
+    }
+
+    .status-bar .icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Signal bars */
+    .signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+    .signal span {
+      width: 3px;
+      background: #000;
+      border-radius: 1px;
+    }
+    .signal span:nth-child(1) { height: 4px; }
+    .signal span:nth-child(2) { height: 6px; }
+    .signal span:nth-child(3) { height: 9px; }
+    .signal span:nth-child(4) { height: 12px; }
+
+    /* Wifi */
+    .wifi {
+      width: 17px;
+      height: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wifi svg { width: 17px; height: 13px; }
+
+    /* Battery */
+    .battery {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+    .battery-body {
+      width: 25px;
+      height: 12px;
+      border: 1px solid rgba(0,0,0,0.35);
+      border-radius: 4px;
+      padding: 2px;
+      position: relative;
+    }
+    .battery-fill {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 2px;
+    }
+    .battery-cap {
+      width: 2px;
+      height: 5px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── Top Nav ── */
+    .top-nav {
+      height: 48px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0 16px;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .back-btn svg {
+      width: 10px;
+      height: 17px;
+      stroke: #1a1c1e;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .step-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #909296;
+      text-align: center;
+      letter-spacing: 0;
+      line-height: 22px;
+    }
+
+    .login-btn {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1c1e;
+      cursor: pointer;
+      line-height: 22px;
+      white-space: nowrap;
+    }
+
+    /* ── Progress Stepper ── */
+    .stepper {
+      display: flex;
+      gap: 8px;
+      padding: 0 120px;
+      background: #fff;
+    }
+
+    .stepper-bar {
+      flex: 1;
+      height: 4px;
+      border-radius: 4px;
+      background: #f1f3f5;
+    }
+
+    .stepper-bar.active {
+      background: #1bc4cf;
+    }
+
+    /* ── Content Area ── */
+    .content {
+      position: absolute;
+      top: 134px;
+      left: 16px;
+      width: 361px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Heading */
+    .heading-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .heading-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1c1e;
+      line-height: 24px;
+      letter-spacing: -0.4px;
+    }
+
+    .heading-subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: #495057;
+      line-height: 20px;
+    }
+
+    /* Form Fields */
+    .fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-field {
+      background: #f1f3f5;
+      height: 48px;
+      border-radius: 8px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      border: none;
+      outline: none;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1c1e;
+      line-height: 20px;
+    }
+
+    .form-field::placeholder {
+      color: #909296;
+      font-weight: 500;
+    }
+
+    /* Legal Text */
+    .legal {
+      font-size: 10px;
+      font-weight: 400;
+      color: #909296;
+      line-height: 14px;
+    }
+
+    .legal a {
+      font-weight: 700;
+      color: #1bc4cf;
+      text-decoration: none;
+    }
+
+    .legal a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      position: absolute;
+      bottom: 34px; /* above home indicator */
+      left: 0;
+      width: 393px;
+      background: #fff;
+      border-top: 1px solid #f1f3f5;
+      padding: 12px 16px 16px;
+    }
+
+    .continue-btn {
+      width: 100%;
+      height: 48px;
+      background: #a5f5f1;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      color: #909296;
+      cursor: pointer;
+      line-height: 24px;
+      letter-spacing: 0;
+    }
+
+    /* ── Home Indicator ── */
+    .home-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 393px;
+      height: 34px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 8px;
+      background: #fff;
+    }
+
+    .home-indicator-bar {
+      width: 134px;
+      height: 5px;
+      background: #000;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons">
+        <!-- Signal -->
+        <div class="signal">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <!-- Wifi -->
+        <div class="wifi">
+          <svg viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.5 10.2a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z" fill="#000"/>
+            <path d="M5.2 7.4a4.7 4.7 0 0 1 6.6 0" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M2.1 4.3a9 9 0 0 1 12.8 0" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M0 1.4A12.8 12.8 0 0 1 17 1.4" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <!-- Battery -->
+        <div class="battery">
+          <div class="battery-body"><div class="battery-fill"></div></div>
+          <div class="battery-cap"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Nav -->
+    <div class="top-nav">
+      <div class="back-btn" role="button" aria-label="Back">
+        <svg viewBox="0 0 10 17" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="9,1 1,8.5 9,16"/>
+        </svg>
+      </div>
+      <span class="step-label">Step 1 of 5</span>
+      <span class="login-btn" role="button">Log in</span>
+    </div>
+
+    <!-- Stepper -->
+    <div class="stepper">
+      <div class="stepper-bar active"></div>
+      <div class="stepper-bar"></div>
+      <div class="stepper-bar"></div>
+      <div class="stepper-bar"></div>
+      <div class="stepper-bar"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Heading -->
+      <div class="heading-block">
+        <h1 class="heading-title">What's your email?</h1>
+        <p class="heading-subtitle">You'll use your email to log in to Splash.</p>
+      </div>
+
+      <!-- Fields -->
+      <div class="fields">
+        <input class="form-field" type="email" placeholder="Email" autocomplete="email" />
+        <input class="form-field" type="email" placeholder="Confirm email" autocomplete="email" />
+        <input class="form-field" type="text" placeholder="Promo code (optional)" autocomplete="off" />
+      </div>
+
+      <!-- Legal -->
+      <p class="legal">
+        Clicking "Continue" confirms you are age 18+ (19+ in AL &amp; 21+ MA, IA, LA, AZ) and agree to our
+        <a href="https://legal.splashsports.com/legal/terms-of-use">Terms</a> and
+        <a href="https://legal.splashsports.com/legal/privacy-policy">Privacy Policy</a>.
+        You'll also get offers and messages from the SplashSports companies. Find out where Splash Sports is
+        <a href="https://legal.splashsports.com/map/splash-fantasy-contest-availability">currently available</a>.
+        <br /><br />
+        If you or someone you know has a gambling problem and wants help, call
+        <a href="tel:18005224700">1-800-522-4700</a> or chat
+        <a href="https://www.ncpgambling.org/chat">here</a>.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <button class="continue-btn">Continue</button>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="home-indicator">
+      <div class="home-indicator-bar"></div>
+    </div>
+
+  </div>
+</body>
+</html>
